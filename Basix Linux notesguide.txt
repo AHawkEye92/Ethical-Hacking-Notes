@@ -1,0 +1,28 @@
+Basix Linux notes/guide Basic
+pwd current directory 
+/root
+ls all directories 
+Desktop    Downloads  Pictures  Templates  embedded-browser-no-sandbox.json
+Documents  Music      Public    Videos
+
+cd downloads 
+pwd 
+/root/Downloads
+ls
+show downloads or files in Downloads directory 
+cd .. "used to back"
+pwd 
+/root
+ls "command"
+man ls "how to use command show text file"
+q "to quit"
+ls -l "show all info of files"
+clear "to clear screen"
+ls --help "to show information how to use command examples arguments"
+tab "Doc" used to complete word if u lazy
+apt-get update application to download programs
+apt-get install terminator same thing root but allow multiple root"
+Basic Linux Notes/Guide
+Common Commands
+pwd
+
