@@ -1,0 +1,26 @@
+HOW TO CHANGE MAC ADDRESS Basic
+ifconfig list internet interfaces
+wlan0 might be your usb network device
+Change MAC address 
+ifconfig 
+ifconfig wlan0 down
+ifconfig wlan0 hw ether 
+ifconfig wlan0 up
+mac address in memory changed
+
+There could be issue in kali mac address not changing
+go to terminator 
+leafpad /etc/NetworkManager/NetworkManager.conf
+text file will open
+copy this after leaving line
+Past the following in the config file
+[device]
+wifi.scan-rand-mac-address=no
+
+[connection]
+ethernet.cloned-mac-address=preserve
+wifi.cloned-mac-address=preserve
+then save 
+quit
+type in root service NetworkManager restart if service network-manager restart not work
+
