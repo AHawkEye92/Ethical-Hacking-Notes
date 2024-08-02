@@ -1,0 +1,32 @@
+ENABLE MONITOR MODE Basic
+
+"iwconfig" used to see wireless interface
+we can see mode managed it can capture packects thas has destination mac adrees as mac adrees of this device. want to capture all packect 
+mode changed from managed to monitor 
+ifconfig wlan0 down
+airmon-ng check kill          
+ used to kill all process which could interfere kill network manager loose wifi no prob we need to monitor mode in pre connection attack(no internet needed when in monitor mode)
+iwconfig wlan0 mode monitor
+ifconfig wlan0 up
+iwconfig 
+mode now monitor
+now capture packects in range
+
+ALTERNATE METHOD TO ENABLE MONITOR MODE
+iwconfig
+ifconfig wlan down
+airmon-ng check kill
+kill some process 
+loose internet
+airmon-ng start wlan0
+message monitor mode enabled
+iwconfig
+newinterface wlan0mon 
+now use this
+
+if both method not work monitor mode not supported 
+possible cause  
+not these kind chipset
+
+realtek RTL8812AU
+Atheros AR9271
